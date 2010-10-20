@@ -1,0 +1,23 @@
+/* 角度ごとに命令 */
+function commandByAngle(angle) {
+    if(getCurveAngle()>angle&&angle>180-getCurveAngle()){
+        curve();
+    } else if(180-getCurveAngle()>angle&&angle>0) {
+        reverse();
+    } else if(180>angle&&angle>getCurveAngle()) {
+        straight();
+    }
+    return;
+}
+
+/* 曲がったときの処理 */
+function curve() {
+    if(curved){
+        //書き込み処理 
+        write();
+    }
+    curved=!curved;
+    curveCount=0;
+    return;
+}
+

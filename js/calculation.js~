@@ -1,0 +1,11 @@
+function calculateRange(startX,startY,endX,endY) {
+    var tmpX = Math.abs(startX-endX);
+    var tmpY = Math.abs(startY-endY);
+    return Math.sqrt(Math.pow(tmpX,2) + Math.pow(tmpY,2));
+}
+
+function calculateAngle() {
+
+}
+
+

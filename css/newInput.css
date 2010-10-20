@@ -1,0 +1,13 @@
+.canvas {
+    float:left;
+    width:600px;
+    height:600px;
+    background-color:#880000;
+}
+
+.input {
+    float:left;
+    width:200px;
+    height:200px;
+    background-color:#EEEEEE;
+}
