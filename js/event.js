@@ -16,15 +16,17 @@ function onMoveCanvas(event){
         movingX=event.pageX;
 	movingY=event.pageY;
         var range=calculateRange(stackedStartX,stackedStartY,movingX,movingY);
+	if(range > getDivisionForRange()){
+	  commandByAngle(calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY));
+	  var debug=calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY);
+	  document.getElementById("debug").innerHTML=debug;
+	}
 	/* １マス分進んだ時の処理 */
         if(range > getDivision()){
             /* debug用 */
             if(!moved){
 		moved=true;
 	    } else {
-		commandByAngle(calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY));
-		var debug=calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY);
-		document.getElementById("debug").innerHTML=debug;
 		checkAndAdjustCount();
 		stackedStartX=stackedEndX;
 		stackedStartY=stackedEndY;

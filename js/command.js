@@ -1,14 +1,30 @@
 /* 角度ごとに命令 */
 function commandByAngle(angle) {
-    if(getCurveAngle()>angle&&angle>(180-getCurveAngle())){
+    if(isCurveAngle(angle)){
         curve();
-    } else if((180-getCurveAngle())>angle&&angle>=0) {
+    } else if(isReverseAngle(angle)) {
         reverse();
-    } else if(180>=angle&&angle>=getCurveAngle()) {
+    } else if(isStraightAngle(angle)) {
         straight();
     }
     checkAndAdjustCount();
     return;
+}
+
+/* 角度判定 */
+function isCurveAngle(angle) {
+    if(getCurveAngle()>angle&&angle>(180-getCurveAngle())){return true;}
+    return false;
+}
+
+function isReverseAngle(angle) {
+    if((180-getCurveAngle())>angle&&angle>=0){return true;}
+    return false;
+}
+
+function isStraightAngle(angle) {
+    if(180>=angle&&angle>=getCurveAngle()){return true;}
+    return false;
 }
 
 /* 曲がったときの処理 */

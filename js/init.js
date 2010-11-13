@@ -46,7 +46,11 @@ function getDivision() {
     return 30;
 }
 
+function getDivisionForRange() {
+    return 5;
+}
+
 function getCurveAngle() {
-    return 120;
+    return 150;
 }
 
