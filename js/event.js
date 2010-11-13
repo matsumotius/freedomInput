@@ -1,41 +1,38 @@
 function onClickCanvas(event){
-    if(event) {
-	stackedStartX=event.pageX;
-        stackedStartY=event.pageY;
-        clicked=true;
-	if(!moved) {
-	    temporaryWord="[あ]";
-	    showTemporaryWord();
-	}
-    }
-    return;
-}
+    if(!event || canvas.clicked) { return; }
 
+    canvas.startPoint['X']=event.pageX;
+    canvas.StartPoint['Y']=event.pageY;
+    
+    canvas.clicked=true;
+
+    if(canvas.moved) { return; }
+    word.nowShowing="[あ]";
+    word.show();
+
+}
 function onMoveCanvas(event){
-    if(clicked&&event) {
-        movingX=event.pageX;
-	movingY=event.pageY;
-        var range=calculateRange(stackedStartX,stackedStartY,movingX,movingY);
-	if(range > getDivisionForRange()){
-	  commandByAngle(calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY));
-	  var debug=calculateAngle(stackedStartX,stackedStartY,stackedEndX,stackedEndY,movingX,movingY);
-	  document.getElementById("debug").innerHTML=debug;
-	}
-	/* １マス分進んだ時の処理 */
-        if(range > getDivision()){
-            /* debug用 */
-            if(!moved){
-		moved=true;
-	    } else {
-		checkAndAdjustCount();
-		stackedStartX=stackedEndX;
-		stackedStartY=stackedEndY;
-	    }
-	    stackedEndX=movingX;
-	    stackedEndY=movingY;
-	    changeTemporaryWord();
-	    showTemporaryWord();
-        }
+    if(!canvas.clicked || !event) { return; }
+
+    canvas.movingPoint['X'] = event.pageX;
+    canvas.movingPoint['Y'] = event.pageY;
+    canvas.range = calculateRange(canvas.startPoint,canvas.movingPoint);
+
+    if(canvas.range > config.angleRange) {
+      commandByAngle(calculateAngle(canvas.startPoint,canvas.endPoint,canvas.movingPoint));
+    }
+    /* １マス分進んだ時の処理 */
+    if(canvas.range > config.wordRange){
+      if(!canvas.moved){
+	moved=true;
+	return;
+      }
+
+      checkAndAdjustCount();
+      canvas.switchPoint();
+
+      word.set(canvas.straightCount,canvas.curveCount);
+      word.show();
     }
     return;
 }
