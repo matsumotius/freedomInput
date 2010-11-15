@@ -1,13 +1,15 @@
 /* 角度ごとに命令 */
 function commandByAngle(angle) {
     if(isCurveAngle(angle)){
+	canvas.changeState("curve");
         curve();
     } else if(isReverseAngle(angle)) {
+	canvas.changeState("reverse");
         reverse();
     } else if(isStraightAngle(angle)) {
+	canvas.changeState("straight");
         straight();
     }
-    // canvas.range = 0;
     canvas.adjustCount();
     return;
 }
@@ -31,16 +33,16 @@ function curve() {
         word.write();
 	canvas.straightCount=0;
     }
-    canvas.curved=!canvas.curved;
-    canvas.curveCount=0;
+    canvas.curved = !canvas.curved;
+    canvas.curveCount = 0;
     return;
 }
 /* 反対方向を向いたときの処理 */
 function reverse() {
     if(canvas.curved) {
-        canvas.curveReversed=!canvas.curveReversed;
+        canvas.curveReversed = !canvas.curveReversed;
     } else {
-        canvas.straightReversed=!canvas.straightReversed;
+        canvas.straightReversed = !canvas.straightReversed;
     }
     straight();
     return;

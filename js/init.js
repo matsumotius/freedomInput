@@ -20,7 +20,7 @@ function Canvas() {
     this.movingPoint = { X : 0 , Y : 0 }; 
 
     this.range = 0;
-    this.state = "";
+    this.state = "straight";
 
     this.straightCount = 0;
     this.curveCount = 0;
@@ -32,30 +32,32 @@ function Canvas() {
       this.endPoint['X'] = this.movingPoint['X'];
       this.endPoint['Y'] = this.movingPoint['Y'];
     };
+    this.changeState = function(requestedState) {
+	if(requestedState==this.state) { return; }
+	this.state = requestedState;
+	this.range = 0;
+    };
     this.adjustCount = function() {
       if(this.curved) {
         /* TODO:数値をどこか別の場所で持ちたい。wordTableに関係するところで */
 	/* ダメダメ条件分岐 */
         if((this.curveCount > 2 && this.straightCount == 7) || (this.curveCount > 2 && this.straightCount == 9) ||
-           (this.curveCount > 4 && !this.curveReversed) || (this.curveCount < 0 && this.curveReversed)) {
-            
-	    this.curved = false;
-            this.curveCount = 0;
+           (this.curveCount > 4 && !this.curveReversed) || (this.curveCount < 0 && this.curveReversed))
+	{
+	  this.curved = false;
+          this.curveCount = 0;
         }
 	return;
       }
-	
       if(this.straightCount > 9 && !this.straightReversed){
             this.straightCount = 0;
 	    return;
       }
-
       if(this.straightCount < 0 && this.straightReversed){
             this.straightCount = 9;
       }
     };
 }
-
 function Word() {
     /* 表示用文字 */
     this.nowShowing = "";
@@ -73,6 +75,7 @@ function Word() {
     this.table[9]=new Array("わ","を","ん");
 
     this.set = function(consonant,vowel) {
+      console.log(consonant);
       this.nowShowing = this.table[consonant][vowel];
     };
     this.show = function() {
@@ -83,10 +86,9 @@ function Word() {
       document.getElementById("input").innerHTML+=this.nowShowing;
     };  
 }
-
 function Config() {
-    this.wordRange = 20;
-    this.angleRange = 5;
+    this.wordRange = 40;
+    this.angleRange = :;
     this.curveAngle = 150;
 }
 
